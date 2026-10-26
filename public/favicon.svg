@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="6" fill="#030303"/>
+  <!-- Left Pillar -->
+  <path d="M5 6H10V26H5V6Z" fill="#F5F5F5"/>
+  <!-- Left Diagonal -->
+  <path d="M10 6L16 16.5V22.5L10 12V6Z" fill="#F5F5F5"/>
+  <!-- Right Diagonal Accent -->
+  <path d="M22 6L16 16.5V22.5L22 12V6Z" fill="#818CF8"/>
+  <!-- Right Pillar -->
+  <path d="M22 6H27V26H22V6Z" fill="#F5F5F5"/>
+</svg>

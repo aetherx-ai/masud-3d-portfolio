@@ -1,6 +1,7 @@
 import React from 'react';
 import { usePortfolio } from '../../context/PortfolioContext';
 import { ArrowDown, ArrowUpRight, Sparkles, MessageSquare } from 'lucide-react';
+import { MasudLogoMark } from '../Brand/MasudLogo';
 
 export const VoidOpening: React.FC = () => {
   const { enterExperience, scrollToSection } = usePortfolio();
@@ -29,8 +30,9 @@ export const VoidOpening: React.FC = () => {
 
       {/* Main Hero Architectural Composition */}
       <div className="flex-1 flex flex-col justify-center py-8 sm:py-12 my-auto w-full max-w-7xl mx-auto">
-        {/* Subtle Intent & Index Header */}
+        {/* Subtle Intent & Index Header with Supporting Brand Signature */}
         <div className="flex items-center gap-3 mb-4 sm:mb-6 font-mono text-xs text-zinc-400 tracking-[0.25em] uppercase">
+          <MasudLogoMark variant="dark" className="w-4 h-4 shrink-0" />
           <span className="text-indigo-400 font-semibold">00</span>
           <span className="text-zinc-700" aria-hidden="true">/</span>
           <span>CREATIVE TECHNOLOGY & ARCHITECTURE</span>

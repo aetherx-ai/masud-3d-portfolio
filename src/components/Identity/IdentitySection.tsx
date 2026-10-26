@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { usePortfolio } from '../../context/PortfolioContext';
+import { MasudLogoMark } from '../Brand/MasudLogo';
 
 interface Pillar {
   number: string;
@@ -58,6 +59,7 @@ export const IdentitySection: React.FC = () => {
         {/* Section Marker */}
         <div className="flex items-center justify-between border-b border-black/15 pb-6 mb-16 sm:mb-20 font-mono text-xs text-neutral-600 uppercase tracking-[0.25em]">
           <div className="flex items-center gap-3">
+            <MasudLogoMark variant="light" className="w-4 h-4 shrink-0" />
             <span className="text-neutral-900 font-bold">01</span>
             <span className="text-neutral-400" aria-hidden="true">/</span>
             <span>CORE ARCHITECTURAL IDENTITY</span>

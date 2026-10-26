@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, Mail } from 'lucide-react';
+import { MasudLogoMark } from '../Brand/MasudLogo';
 
 // Crisp, high-end SVG icons for WhatsApp and Facebook
 const WhatsAppIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
@@ -128,9 +129,12 @@ export const ContactSection: React.FC = () => {
       {/* FINAL FOOTER */}
       <footer className="max-w-6xl mx-auto w-full pt-16 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 font-mono text-xs text-zinc-500">
         <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 sm:gap-4">
-          <span className="font-display font-bold text-white tracking-wider text-sm">
-            MASUD
-          </span>
+          <div className="flex items-center gap-2">
+            <MasudLogoMark variant="dark" className="w-4 h-4" />
+            <span className="font-display font-bold text-white tracking-wider text-sm">
+              MASUD
+            </span>
+          </div>
           <span className="text-zinc-700 hidden sm:inline">·</span>
           <span className="text-zinc-400 text-center">
             AI ENGINEER • FULL-STACK DEVELOPER • AI AUTOMATION

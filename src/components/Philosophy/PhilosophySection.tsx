@@ -2,6 +2,7 @@ import React from 'react';
 import { PHILOSOPHY_PILLARS } from '../../data/portfolioData';
 import { usePortfolio } from '../../context/PortfolioContext';
 import { ArrowUpRight } from 'lucide-react';
+import { MasudLogoMark } from '../Brand/MasudLogo';
 
 export const PhilosophySection: React.FC = () => {
   const { scrollToSection } = usePortfolio();
@@ -15,6 +16,7 @@ export const PhilosophySection: React.FC = () => {
         {/* Editorial Masthead Bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-black/15 pb-6 mb-16 sm:mb-20 font-mono text-xs uppercase tracking-[0.25em] text-neutral-600">
           <div className="flex items-center gap-3">
+            <MasudLogoMark variant="light" className="w-4 h-4 shrink-0" />
             <span className="font-bold text-neutral-900">02</span>
             <span className="text-neutral-400" aria-hidden="true">/</span>
             <span>THE ARCHITECTURAL ETHOS</span>

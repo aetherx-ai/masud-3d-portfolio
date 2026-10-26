@@ -2,6 +2,7 @@ import React from 'react';
 import { usePortfolio } from '../../context/PortfolioContext';
 import { SectionId } from '../../types';
 import { Eye, EyeOff, Volume2, VolumeX, ArrowUpRight } from 'lucide-react';
+import { MasudLogoMark } from '../Brand/MasudLogo';
 
 const TOP_LINKS: { id: SectionId; label: string }[] = [
   { id: 'lumoclip', label: 'Flagship' },
@@ -47,13 +48,15 @@ export const SpatialNav: React.FC = () => {
           zenMode ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'
         }`}
       >
-        {/* Zone 1: Single-element Brand Wordmark */}
+        {/* Zone 1: Single-element Brand Wordmark with Geometric M Monogram */}
         <div className="flex items-center gap-3 pointer-events-auto">
           <button
             onClick={() => scrollToSection('identity')}
-            className="text-base font-display font-black tracking-widest text-white hover:text-indigo-300 transition-colors cursor-pointer uppercase"
+            className="flex items-center gap-2 text-base font-display font-black tracking-widest text-white hover:text-indigo-300 transition-colors cursor-pointer uppercase group"
+            aria-label="MASUD Home"
           >
-            MASUD
+            <MasudLogoMark variant="dark" className="w-5 h-5 group-hover:scale-105 transition-transform" />
+            <span>MASUD</span>
           </button>
           <span className="text-zinc-700 font-mono text-xs hidden sm:inline" aria-hidden="true">/</span>
           <span className="text-zinc-400 font-mono text-[11px] tracking-wider hidden sm:inline">
