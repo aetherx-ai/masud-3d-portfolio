@@ -54,7 +54,7 @@ export const ProjectModal: React.FC = () => {
           {/* Metrics & Architecture Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
             <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-              <span className="text-zinc-500 uppercase tracking-wider block mb-1">PROVEN IMPACT</span>
+              <span className="text-zinc-500 uppercase tracking-wider block mb-1">ARCHITECTURAL SCOPE</span>
               <span className="text-white font-bold text-sm sm:text-base">{selectedProject.metrics}</span>
             </div>
             <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06]">

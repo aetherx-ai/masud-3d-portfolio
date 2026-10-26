@@ -17,8 +17,12 @@ const SECTION_TARGETS: Record<string, { x: number; y: number; z: number; scale: 
   contact: { x: 0, y: 0, z: 10.0, scale: 0.6, gx: 0 },
 };
 
-// Reusable procedural particle texture (zero 404 dependencies)
-function createParticleTexture(): THREE.CanvasTexture {
+// Cached procedural particle texture (singleton, zero garbage collection)
+let cachedParticleTexture: THREE.CanvasTexture | null = null;
+
+function getParticleTexture(): THREE.CanvasTexture {
+  if (cachedParticleTexture) return cachedParticleTexture;
+
   const c = document.createElement('canvas');
   c.width = 32;
   c.height = 32;
@@ -34,6 +38,7 @@ function createParticleTexture(): THREE.CanvasTexture {
   }
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
+  cachedParticleTexture = tex;
   return tex;
 }
 
@@ -59,10 +64,11 @@ const SceneContent: React.FC<{ activeSection: string; zenMode: boolean }> = ({
     zenRef.current = zenMode;
   }, [activeSection, zenMode]);
 
-  // Pre-allocate particle buffer geometry once
+  // Pre-allocate particle buffer geometry once with optimized counts
   const { particlePositions, particleColors, particleTexture } = useMemo(() => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    const count = isMobile ? 320 : 1200;
+    // Optimized counts: 180 on mobile, 650 on desktop (cuts vertices & fill-rate by 50% while maintaining dense constellation aesthetic)
+    const count = isMobile ? 180 : 650;
 
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
@@ -97,23 +103,29 @@ const SceneContent: React.FC<{ activeSection: string; zenMode: boolean }> = ({
     return {
       particlePositions: positions,
       particleColors: colors,
-      particleTexture: createParticleTexture(),
+      particleTexture: getParticleTexture(),
     };
   }, []);
 
   // Single authoritative R3F useFrame loop
   useFrame((state, delta) => {
+    // 1. Skip rendering if browser tab is hidden or backgrounded
     if (document.hidden) return;
 
-    // Delta clamp to prevent hitching
+    const curSec = sectionRef.current || 'void';
+
+    // 2. Pause heavy 3D updates when user is inside opaque warm off-white sections
+    if (curSec === 'identity' || curSec === 'philosophy' || curSec === 'projects') return;
+
+    // Delta clamp to prevent frame hitching on tab restore
     const dt = Math.min(delta, 0.05);
     const elapsed = state.clock.getElapsedTime();
 
-    // R3F pointer values are normalized (-1 to +1) and updated continuously by eventSource
+    // R3F pointer values are normalized (-1 to +1)
     const targetPx = state.pointer.x;
     const targetPy = state.pointer.y;
 
-    // Smooth frame-rate-independent exponential damping (Step 4 & 5)
+    // Smooth frame-rate-independent exponential damping
     const smoothFactor = 1.0 - Math.exp(-12.0 * dt);
     smoothedPointer.current.x += (targetPx - smoothedPointer.current.x) * smoothFactor;
     smoothedPointer.current.y += (targetPy - smoothedPointer.current.y) * smoothFactor;
@@ -121,11 +133,9 @@ const SceneContent: React.FC<{ activeSection: string; zenMode: boolean }> = ({
     const px = smoothedPointer.current.x;
     const py = smoothedPointer.current.y;
 
-    // Active Section target coordinates
-    const curSec = sectionRef.current || 'void';
     const target = SECTION_TARGETS[curSec] || SECTION_TARGETS.void;
 
-    // Subtle camera parallax (Step 5: clamped range ~ -0.3 to +0.3)
+    // Subtle camera parallax
     const camSmooth = 1.0 - Math.exp(-5.0 * dt);
     const targetCamX = target.x + px * 0.3;
     const targetCamY = target.y + py * 0.2;
@@ -135,7 +145,7 @@ const SceneContent: React.FC<{ activeSection: string; zenMode: boolean }> = ({
     camera.position.y += (targetCamY - camera.position.y) * camSmooth;
     camera.position.z += (targetCamZ - camera.position.z) * camSmooth;
 
-    // 3D Object response: subtle, cinematic, expensive (Step 6)
+    // 3D Object rotation with delta-based kinetics
     if (groupRef.current) {
       const baseSpeed = 0.18;
       groupRef.current.rotation.y = elapsed * baseSpeed + px * 0.45;
@@ -229,16 +239,17 @@ export const WorldCanvas: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-0 pointer-events-none select-none"
+      className="fixed inset-0 z-0 pointer-events-none select-none transition-opacity duration-1000 opacity-100"
       style={{ pointerEvents: 'none' }}
       aria-hidden="true"
     >
       <Canvas
         camera={{ position: [0, 0, 9], fov: 45 }}
-        dpr={typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 1.5) : 1}
+        // DPR capped at 1.25 for high-efficiency rendering on retina displays
+        dpr={typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 1.25) : 1}
         gl={{
           powerPreference: 'high-performance',
-          antialias: true,
+          antialias: false,
           alpha: false,
           depth: true,
           stencil: false,
@@ -250,7 +261,6 @@ export const WorldCanvas: React.FC = () => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
           gl.toneMappingExposure = 1.1;
         }}
-        // R3F eventSource attaches pointer listeners to the root document so pointer is tracked anywhere
         eventSource={rootElement ?? undefined}
         eventPrefix="client"
         style={{ pointerEvents: 'none' }}

@@ -43,8 +43,8 @@ export const SpatialNav: React.FC = () => {
     <>
       {/* Top 3-Zone Navigation Bar */}
       <header
-        className={`fixed top-0 left-0 right-0 z-40 px-6 sm:px-12 py-5 sm:py-6 flex items-center justify-between gap-8 transition-opacity duration-300 pointer-events-none ${
-          zenMode ? 'opacity-0' : 'opacity-100'
+        className={`fixed top-0 left-0 right-0 z-40 px-6 sm:px-12 py-4 sm:py-5 flex items-center justify-between gap-8 transition-all duration-300 pointer-events-none bg-[#030305]/75 backdrop-blur-md border-b border-white/[0.06] ${
+          zenMode ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'
         }`}
       >
         {/* Zone 1: Single-element Brand Wordmark */}

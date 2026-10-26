@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Cpu, Eye, Workflow, Bot, RefreshCw } from 'lucide-react';
+import { Cpu, Eye, Workflow, Bot, RefreshCw, CheckCircle2 } from 'lucide-react';
 
 const AI_PILLARS = [
-  { label: "FOUNDATION ENGINE", value: "GEMINI 2.5 FRONTIER", desc: "Multimodal audio, video & structured output streaming", icon: Cpu },
-  { label: "SPATIAL VISION", value: "FRAME ANALYSIS PIPELINE", desc: "Speaker tracking, OCR & dynamic canvas re-framing", icon: Eye },
-  { label: "REASONING TOPOLOGY", value: "DETERMINISTIC LATENT DAG", desc: "Self-correcting state machines with zero hallucination", icon: Workflow },
-  { label: "AUTONOMOUS SWARMS", value: "MULTI-AGENT ORCHESTRATION", desc: "Distributed task dispatch, verification & tool calling", icon: Bot },
+  { label: "FOUNDATION ENGINE", value: "GEMINI 2.5 FRONTIER", desc: "Native multimodal audio, video & structured JSON output streaming", icon: Cpu },
+  { label: "SPATIAL VISION", value: "DYNAMIC VISION PIPELINE", desc: "Active speaker tracking, OCR & kinetic 9:16 canvas reframing", icon: Eye },
+  { label: "REASONING TOPOLOGY", value: "SELF-CORRECTING DAGs", desc: "Multi-agent deterministic state machines with automatic recovery", icon: Workflow },
+  { label: "AUTONOMOUS SWARMS", value: "MULTI-AGENT DISPATCH", desc: "Distributed task routing, verification loops & tool-calling", icon: Bot },
 ];
 
 const PRESET_QUERIES = [
@@ -41,25 +41,30 @@ export const AISystemSection: React.FC = () => {
   };
 
   return (
-    <section id="ai" className="relative min-h-screen py-36 sm:py-48 px-6 sm:px-12 z-20 flex flex-col justify-center">
+    <section id="ai" className="relative py-32 sm:py-48 px-6 sm:px-12 lg:px-16 z-20 bg-[#040406] text-white">
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
-        <div className="flex items-center gap-3 mb-6 font-mono text-xs text-zinc-500 tracking-[0.25em] uppercase">
-          <span className="w-8 h-px bg-white/20" />
-          <span>06 · APPLIED INTELLIGENCE & AGENTS</span>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/[0.08] pb-6 mb-16 sm:mb-20 font-mono text-xs text-zinc-500 uppercase tracking-[0.25em]">
+          <div className="flex items-center gap-3">
+            <span className="text-indigo-400 font-bold">06</span>
+            <span className="text-zinc-700">/</span>
+            <span>APPLIED INTELLIGENCE & AGENTS</span>
+          </div>
+          <span className="text-zinc-400">PRODUCTION LLM RUNTIMES</span>
         </div>
 
-        <div className="mb-14 sm:mb-20">
-          <h2 className="font-display font-black text-6xl sm:text-8xl md:text-9xl tracking-tighter text-white leading-[0.88]">
-            APPLIED AI
+        {/* Monumental Headline */}
+        <div className="mb-16 sm:mb-24 max-w-4xl">
+          <h2 className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight text-white leading-[0.88]">
+            APPLIED AI<span className="text-indigo-400">.</span>
           </h2>
           <p className="font-mono text-xs sm:text-sm tracking-[0.25em] text-zinc-400 uppercase mt-4">
             AUTONOMOUS SYSTEMS, REASONING GRAPHS & PRODUCTION LLMS
           </p>
         </div>
 
-        {/* 4 Laboratory Architecture Modules (Zero-Slop Clean Surface) */}
-        <div className="border border-white/[0.08] rounded-3xl bg-[#06060A]/95 backdrop-blur-md overflow-hidden mb-24 sm:mb-32 shadow-2xl">
+        {/* 4 Architecture Pillars */}
+        <div className="border border-white/[0.08] rounded-3xl bg-[#06060A]/95 backdrop-blur-md overflow-hidden mb-16 shadow-2xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.08]">
             {AI_PILLARS.map((item, idx) => {
               const Icon = item.icon;
@@ -73,7 +78,7 @@ export const AISystemSection: React.FC = () => {
                     <h4 className="font-display font-bold text-lg text-white tracking-tight">
                       {item.value}
                     </h4>
-                    <p className="font-sans text-xs text-zinc-400 mt-2 leading-relaxed">
+                    <p className="font-sans text-xs text-zinc-400 mt-2 leading-relaxed font-normal">
                       {item.desc}
                     </p>
                   </div>
@@ -83,8 +88,8 @@ export const AISystemSection: React.FC = () => {
           </div>
 
           {/* Interactive Agent Query Simulator */}
-          <div className="border-t border-white/[0.08] p-6 sm:p-8 bg-[#040407]">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+          <div className="border-t border-white/[0.08] p-6 sm:p-8 bg-[#030305]">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
               <span className="font-mono text-xs text-zinc-400 tracking-[0.2em] uppercase">
                 NEURAL WORKFLOW EXECUTION TRACE
               </span>
@@ -105,13 +110,13 @@ export const AISystemSection: React.FC = () => {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/[0.08] bg-black/60 p-5 sm:p-6 font-mono text-xs space-y-3.5">
+            <div className="rounded-2xl border border-white/[0.08] bg-black/70 p-5 sm:p-6 font-mono text-xs space-y-4">
               <div className="flex items-start gap-2.5 text-zinc-400">
                 <span className="text-indigo-400 select-none font-bold">&gt;</span>
-                <p className="flex-1 text-zinc-300 leading-relaxed">{PRESET_QUERIES[selectedPreset].input}</p>
+                <p className="flex-1 text-zinc-200 leading-relaxed">{PRESET_QUERIES[selectedPreset].input}</p>
               </div>
 
-              <div className="border-t border-white/[0.06] pt-3.5">
+              <div className="border-t border-white/[0.06] pt-4">
                 {isSimulating ? (
                   <div className="flex items-center gap-2 text-indigo-400 py-1">
                     <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -127,22 +132,15 @@ export const AISystemSection: React.FC = () => {
           </div>
         </div>
 
-        {/* The Great Manifesto Pause & Statements (Without thick left border cliché) */}
-        <div className="space-y-8 sm:space-y-12">
-          <div>
-            <h3 className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[9.5rem] text-zinc-500 tracking-tighter leading-[0.88]">
-              "AI IS NOT THE FUTURE."
-            </h3>
-          </div>
-
-          <div>
-            <h3 className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[9.5rem] text-white tracking-tighter leading-[0.88]">
-              "IT IS THE SUBSTRATE <br />
-              <span className="text-indigo-300">
-                I BUILD WITH.
-              </span>"
-            </h3>
-          </div>
+        {/* Manifesto Pause Block */}
+        <div className="pt-8 space-y-8 sm:space-y-12">
+          <h3 className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-zinc-600 tracking-tighter leading-[0.88]">
+            "AI IS NOT THE FUTURE."
+          </h3>
+          <h3 className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-white tracking-tighter leading-[0.88]">
+            "IT IS THE SUBSTRATE <br />
+            <span className="text-indigo-300">I BUILD WITH.</span>"
+          </h3>
         </div>
       </div>
     </section>
