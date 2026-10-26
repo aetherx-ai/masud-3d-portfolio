@@ -1,0 +1,6 @@
+{
+  "name": "MASUD — 3D Portfolio & Creative Engineering Universe",
+  "description": "Award-level experimental 3D portfolio and digital universe of MASUD — AI Engineer, Full-Stack Developer, AI Automation Engineer, and SaaS Product Builder.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
